@@ -1,7 +1,7 @@
 <div class="grid">
     <div class="col-12">
         <div class="flex justify-content-center align-content-center text-align-center">
-            <form>
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <p-card
                 styleClass="mt-10"
                 header="Login"
@@ -9,10 +9,10 @@
                 *ngIf="loginCard"
                 >
                 <div class="flex justify-content-center align-content-center text-align-center">
-                    <input type="email" pInputText placeholder="Email">
+                    <input type="email" pInputText placeholder="Email" formControlName="email">
                 </div>
                 <div class="flex justify-content-center align-content-center text-align-center mt-3">
-                    <input type="password" pInputText placeholder="Senha">
+                    <input type="password" pInputText placeholder="Senha" formControlName="senha">
                 </div>
                 <div class="card flex justify-content-center mt-3">
                     <button
@@ -20,6 +20,7 @@
                     pButton
                     pRipple
                     label="Login"
+                    [disabled]="!loginForm.valid"
                     ></button>
                 </div>
                 <span
@@ -31,7 +32,7 @@
             </form>
 
             <!--Signup-->
-            <form>
+            <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
                 <p-card
                 styleClass="mt-10"
                 header="Criar Conta"
@@ -39,13 +40,13 @@
                 *ngIf="!loginCard"
                 >
                 <div class="flex justify-content-center align-content-center text-align-center">
-                    <input type="text" pInputText placeholder="Nome">
+                    <input type="text" pInputText placeholder="Nome" formControlName="nome">
                 </div>
                 <div class="flex justify-content-center align-content-center text-align-center mt-3">
-                    <input type="email" pInputText placeholder="Email">
+                    <input type="email" pInputText placeholder="Email" formControlName="email">
                 </div>
                 <div class="flex justify-content-center align-content-center text-align-center mt-3">
-                    <input type="password" pInputText placeholder="Senha">
+                    <input type="password" pInputText placeholder="Senha" formControlName="senha">
                 </div>
                 <div class="card flex justify-content-center mt-3">
                     <button
@@ -53,12 +54,13 @@
                     pButton
                     pRipple
                     label="Criar Conta"
+                    [disabled]="!signUpForm.valid"
                     ></button>
                 </div>
                 <span
                 class="flex justify-content-center align-content-center text-align-center mt-3 text-red-600 font-semibold"
                 style="cursor: pointer;"
-                (click)="loginCard = !loginCard"
+                (click)="loginCard = !loginCard"                
                 >Fazer Login</span>
             </p-card>
             </form>
