@@ -36,8 +36,9 @@ export class HomeComponent {
     if(this.signUpForm.value && this.signUpForm.valid) {
       this.userService.signupUser(this.signUpForm.value as SignupUserRequest).subscribe({
         next: (response) => {
-          console.log("RESPONSE: ", response);
-          alert("Conta criada com sucesso!");
+          if(response) {
+            alert("Usuário criado com sucesso!");
+          }
         },
         error: (error) => {
           console.log("ERROR: ", error);
