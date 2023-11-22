@@ -12,7 +12,7 @@
                     <input type="email" pInputText placeholder="Email" formControlName="email">
                 </div>
                 <div class="flex justify-content-center align-content-center text-align-center mt-3">
-                    <input type="password" pInputText placeholder="Senha" formControlName="senha">
+                    <input type="password" pInputText placeholder="Senha" formControlName="password">
                 </div>
                 <div class="card flex justify-content-center mt-3">
                     <button
@@ -20,7 +20,7 @@
                     pButton
                     pRipple
                     label="Login"
-                    [disabled]="!loginForm.valid"
+                    [disabled]="!this.loginForm.valid"
                     ></button>
                 </div>
                 <span
@@ -40,21 +40,21 @@
                 *ngIf="!loginCard"
                 >
                 <div class="flex justify-content-center align-content-center text-align-center">
-                    <input type="text" pInputText placeholder="Nome" formControlName="nome">
+                    <input type="text" pInputText placeholder="Nome" formControlName="name">
                 </div>
                 <div class="flex justify-content-center align-content-center text-align-center mt-3">
                     <input type="email" pInputText placeholder="Email" formControlName="email">
                 </div>
                 <div class="flex justify-content-center align-content-center text-align-center mt-3">
-                    <input type="password" pInputText placeholder="Senha" formControlName="senha">
+                    <input type="password" pInputText placeholder="Senha" formControlName="password">
                 </div>
                 <div class="card flex justify-content-center mt-3">
                     <button
                     type="submit"
                     pButton
                     pRipple
-                    label="Criar Conta"
-                    [disabled]="!signUpForm.valid"
+                    label="Criar Conta"                                          
+                    [disabled]="!this.signUpForm.valid"
                     ></button>
                 </div>
                 <span

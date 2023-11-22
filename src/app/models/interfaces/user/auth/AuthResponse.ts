@@ -1,6 +1,6 @@
 export interface AuthResponse {
     id: number;
-    nome: string;
+    name: string;
     email: string;
     token: string; // token jwt do usuario
 }
