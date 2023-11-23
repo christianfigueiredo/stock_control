@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { SignupUserRequest } from 'src/app/models/interfaces/user/SignupUserRequest';
@@ -31,17 +32,24 @@ export class HomeComponent {
   constructor(private formBuilder: FormBuilder, 
               private userService: UserService,
               private cookieService: CookieService,
-              private messageService: MessageService) {}
+              private messageService: MessageService,
+              private router: Router
+              ) {}
 
   login():void {
     if(this.loginForm.value && this.loginForm.valid){
       this.userService.authUser(this.loginForm.value as AuthRequest).subscribe({
         next: (response) => {
           if(response) {
-            this.cookieService.set("USER_TOKEN", response?.token);
+            this.cookieService.set('USER_TOKEN', response?.token);
             //alert("Login efetuado com sucesso!");
             this.loginForm.reset(); 
-            this.messageService.add({severity:'success', summary: 'Success', detail: 'Login efetuado com sucesso! Sr.  ' +response.name, life: 2000});          
+            this.router.navigate(['/dashboard']);
+            this.messageService.add({
+              severity:'success',
+              summary: 'Success', 
+              detail: 'Login efetuado com sucesso! Sr.  ' +response.name, 
+              life: 2000});          
           }
         },
         error: (error) => {
