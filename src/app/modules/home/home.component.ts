@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
 import { SignupUserRequest } from 'src/app/models/interfaces/user/SignupUserRequest';
+import { AuthRequest } from 'src/app/models/interfaces/user/auth/AuthRequest';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -26,10 +29,28 @@ export class HomeComponent {
 
   
   constructor(private formBuilder: FormBuilder, 
-              private userService: UserService) {}
+              private userService: UserService,
+              private cookieService: CookieService,
+              private messageService: MessageService) {}
 
   login():void {
-    console.log("DADOS DO FORMULARIO DO LOGIN: ",this.loginForm.value);
+    if(this.loginForm.value && this.loginForm.valid){
+      this.userService.authUser(this.loginForm.value as AuthRequest).subscribe({
+        next: (response) => {
+          if(response) {
+            this.cookieService.set("USER_TOKEN", response?.token);
+            //alert("Login efetuado com sucesso!");
+            this.loginForm.reset(); 
+            this.messageService.add({severity:'success', summary: 'Success', detail: 'Login efetuado com sucesso! Sr.  ' +response.name, life: 2000});          
+          }
+        },
+        error: (error) => {
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'Erro ao efetuar login ', life: 2000});          
+
+          console.log("ERROR: ", error);
+        },
+      });
+    }
   }
 
   signUp(){
@@ -37,10 +58,16 @@ export class HomeComponent {
       this.userService.signupUser(this.signUpForm.value as SignupUserRequest).subscribe({
         next: (response) => {
           if(response) {
-            alert("Usuário criado com sucesso!");
-          }
+           // alert("Usuário criado com sucesso!");
+            this.signUpForm.reset();
+            this.loginCard = true;
+            this.messageService.add({severity:'success', summary: 'Success', detail: 'Usuário criado com sucesso! Sr.  ' +response.name, life: 2000});          
+
+          }          
         },
         error: (error) => {
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'Erro ao criar usuário ' , life: 2000});          
+
           console.log("ERROR: ", error);
         }
       })
