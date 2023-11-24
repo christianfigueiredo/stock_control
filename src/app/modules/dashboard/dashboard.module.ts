@@ -9,15 +9,13 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
+import { ChartModule } from 'primeng/chart';
 
 
 import { DASHBOARD_ROUTES } from './dashboard.routing';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
-
-
-
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +31,9 @@ import { CookieService } from 'ngx-cookie-service';
     ButtonModule,
     ToolbarModule,
     CardModule,
-    ToastModule
+    ToastModule,
+    ChartModule,
+    SharedModule
 
   ],
 
